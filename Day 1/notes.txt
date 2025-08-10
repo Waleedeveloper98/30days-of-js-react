@@ -1,0 +1,92 @@
+🔥How JS creates execution context (creation phase, execution phase)
+
+✅Execution Context
+Jab JS kisi function ko call karti hai, wo ek naya box banati hai (execution context). Ye box do steps mein kaam karta hai:
+
+🎯Creation Phase (Memory Phase) – Is phase mein box ke andar variables aur functions ki jagah reserve hoti hai. var ko undefined set kiya jata hai, let/const ko jagah milti hai lekin value baad mein assign hoti hai (temporal dead zone). Functions ka pura code memory mein store hota hai.
+
+🎯Execution Phase – Ab code line by line run hota hai. Variables ko actual value milti hai, operations execute hote hain, aur function ka kaam complete hota hai.
+
+Kaam khatam hote hi wo box (execution context) delete ho jata hai, aur control wapas previous context ko mil jata hai.
+
+//////////////////////////////////////////////////////////////////////////
+🔥Call stack & how functions are pushed/popped
+
+✅Call Stack in JavaScript
+JavaScript ek single-threaded language hai, matlab ek time pe ek hi kaam karta hai. Ye jo kaam (execution context) chal rahe hote hain, wo Call Stack naam ke stack data structure mein store hote hain. Call Stack LIFO (Last In, First Out) rule follow karta hai.
+
+🎯Process: Push & Pop
+Program start hote hi Global Execution Context (GEC) stack pe push hota hai.
+Jab function call hota hai, uska naya Execution Context ban ke stack pe push hota hai.
+Jab function ka kaam complete ho jata hai, wo stack se pop ho jata hai.
+Jab sab kaam khatam ho jata hai, GEC bhi pop ho jata hai, aur stack empty ho jata hai.
+
+function a() {
+    console.log("A");
+}
+function b() {
+    a();
+    console.log("B");
+}
+b();
+
+🎯Execution (step-by-step):
+
+b() execute hota hai
+b ka Execution Context banta hai aur Call Stack pe push hota hai.
+Stack: b → GEC.
+Inside b() — Line 5: a() call
+a ka Execution Context banta hai aur stack pe push hota hai.
+Stack: a → b → GEC.
+Inside a() —  console.log("A")
+"A" console par print hota hai.
+a() complete hota hai → a ka context pop hota hai.
+Stack wapas: b → GEC.
+Back in b() —  console.log("B")
+"B" console par print hota hai.
+b() complete hota hai → b ka context pop hota hai.
+Stack: GEC.
+Program end
+
+Agar kuch aur nahi hai to GEC bhi eventually finish hota hai (conceptually pop).
+
+Output order:
+Console pe pehle A, phir B print hoga — kyunki a() ko b() ke andar pehle call kiya gaya.
+
+
+🎯 Interview me bolne ka short version:
+
+"Program start hota hai to sabse pehle GEC banta hai. Har function call ke liye ek new execution context banta hai jo Call Stack me push hota hai. Jab function complete hota hai to uska context stack se pop hota hai, aur control wapas previous function me chala jata hai. Ye process LIFO order me hoti hai — Last In, First Out."
+
+//////////////////////////////////////////////////////////////////////////
+
+🔥Difference between global and function execution contexts
+
+🎯1. Global Execution Context (GEC)
+Kya hota hai:
+Ye default execution context hota hai jo program start hote hi automatically ban jata hai.
+
+Banta kab hai:
+Script load hone par, bina kisi function call ke.
+
+Kya contain karta hai:
+Global object (window in browsers)
+Special variable this (global scope mein)
+Variables and functions jo global scope mein declare hue hain
+
+Life cycle:
+Program end hone tak memory mein rehta hai.
+
+🎯2. Function Execution Context (FEC)
+Kya hota hai:
+Ye execution context tab banta hai jab koi specific function call hota hai.
+
+Banta kab hai:
+Sirf jab function call hota hai (har call ke liye naya context banta hai).
+
+Kya contain karta hai:
+Function ke arguments
+Function ke andar declare hue variables
+Inner functions
+Life cycle:
+Function ka kaam khatam hote hi destroy ho jata hai (pop from call stack).
