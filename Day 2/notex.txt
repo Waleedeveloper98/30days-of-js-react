@@ -1,0 +1,66 @@
+🔥 Hoisting Rules - Quick Revision
+🎯 Hoisting kya hai?
+JS engine variables & functions ke declarations ko apne scope ke top pe le jata hai before code runs.
+
+🎯1. Variables ke Hoisting Rules
+Variable Type	
+a.var
+b.let / const
+
+Behavior on Hoisting	
+a.Declaration hoist, initialization nahi
+b.Declaration hoist, TDZ active
+
+Access before declaration
+a.undefined (error nahi)
+b.ReferenceError (use karne se pehle)
+
+
+🎯TDZ (Temporal Dead Zone) = Declaration ke baad, initialization se pehle ka unsafe zone.
+
+🎯2. Functions ke Hoisting Rules
+Function Declaration: Puri function hoist hoti hai — pehle call kar sakte hain.
+
+Function Expression (var ya let): Variable declaration hoist hota hai, function value nahi — pehle call karoge toh error milega.
+
+
+🎯 Key Points:
+Hoisting = Sirf declaration move hoti hai, initialization nahi
+
+let & const ki Temporal Dead Zone ki wajah se unhe declare se pehle access nahi kar sakte
+
+Function declarations ko pehle call kar sakte hain, expressions nahi
+
+
+🔥Scope types: global, function, block
+
+🎯Global Scope
+Variables jo function/block ke bahar declare hote hain
+
+Poore program mein accessible hote hain
+
+Browser mein ye window object ke part ban jaate hain
+
+Zyada global vars avoid karo (bugs/maintenance ke liye)
+
+🎯2. Function Scope
+Variables jo function ke andar declare hote hain (var, let, const)
+
+Sirf us function ke andar accessible hote hain
+
+Function ke bahar access karoge toh error milega
+
+🎯3. Block Scope
+Jo variables { ... } ke andar let ya const se declare hote hain
+
+Sirf us block ke andar accessible hote hain
+
+var block scoped nahi hota, wo function scoped hota hai
+
+Example: if, for, {} sab block hain
+
+
+
+🔥TDZ ka matlab simple words mein:
+"Variable memory mein reserve toh ho gaya, lekin uska actual value assign nahi hua, isliye aap us variable ko tab tak use nahi kar sakte jab tak wo initialize na ho jaye."
+
